@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "name": "Боб",
+            "email": "bob@example.com",
+            "status": "Active",
+            "food": "Пицца"
+        },
+        {
+            "name": "Небоб",
+            "email": "nebob@example.com",
+            "status": "Inactive",
+            "food": "Суши"
+        },
+        {
+            "name": "Грок",
+            "email": "grok@example.com",
+            "status": "Active",
+            "food": "Борщ"
+        },
+        {
+            "name": "Иван",
+            "email": "ivan@example.com",
+            "status": "Active",
+            "food": "Борщ"
+        },
+        {
+            "name": "Ларри",
+            "email": "Larry@example.com",
+            "status": "Passive",
+            "food": "Сендвич"
+        }
+    ]
+}

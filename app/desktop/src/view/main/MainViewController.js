@@ -4,16 +4,28 @@ Ext.define('MyExtGenApp.view.main.MainViewController', {
 
 
 
-	routes: { 
-		':xtype': {action: 'mainRoute'}
+	routes: {
+		':xtype': { action: 'mainRoute' }
 	},
 
-	mainRoute:function(xtype) {
+	mainRoute: function (xtype) {
 		//var menuview = this.lookup('menuview');
 		var navview = this.lookup('navview');
-		var menuview = navview.items.items[0]
+		if (!navview || !navview.items || !navview.items.items) {
+			console.warn('NavView or its items not found for route: ' + xtype);
+			return;
+		}
+		var menuview = navview.items.items[0];
+		if (!menuview) {
+			console.warn('MenuView not found for route: ' + xtype);
+			return;
+		}
 
 		var centerview = this.lookup('centerview');
+		if (!centerview) {
+			console.warn('CenterView not found for route: ' + xtype);
+			return;
+		}
 		var exists = Ext.ClassManager.getByAlias('widget.' + xtype);
 		if (exists === undefined) {
 			console.log(xtype + ' does not exist');
@@ -25,11 +37,11 @@ Ext.define('MyExtGenApp.view.main.MainViewController', {
 			return;
 		}
 		if (!centerview.getComponent(xtype)) {
-			centerview.add({ xtype: xtype,  itemId: xtype, heading: node.get('text') });
+			centerview.add({ xtype: xtype, itemId: xtype, heading: node.get('text') });
 		}
 		centerview.setActiveItem(xtype);
 		menuview.setSelection(node);
-		var vm = this.getViewModel(); 
+		var vm = this.getViewModel();
 		vm.set('heading', node.get('text'));
 	},
 
@@ -37,7 +49,7 @@ Ext.define('MyExtGenApp.view.main.MainViewController', {
 		if (node == null) { return }
 		var vm = this.getViewModel();
 		if (node.get('xtype') != undefined) {
-			this.redirectTo( node.get('xtype') );
+			this.redirectTo(node.get('xtype'));
 		}
 	},
 
@@ -49,7 +61,7 @@ Ext.define('MyExtGenApp.view.main.MainViewController', {
 	onHeaderViewDetailToggle: function (button) {
 		var vm = this.getViewModel();
 		vm.set('detailCollapsed', !vm.get('detailCollapsed'));
-		if(vm.get('detailCollapsed')===true) {
+		if (vm.get('detailCollapsed') === true) {
 			button.setIconCls('x-fa fa-arrow-left');
 		}
 		else {
@@ -60,17 +72,17 @@ Ext.define('MyExtGenApp.view.main.MainViewController', {
 	onBottomViewlogout: function () {
 		localStorage.setItem("LoggedIn", false);
 		this.getView().destroy();
-		Ext.Viewport.add([{ xtype: 'loginview'}]);
+		Ext.Viewport.add([{ xtype: 'loginview' }]);
 	},
 
 
-//	onActionsViewLogoutTap: function( ) {
-//		var vm = this.getViewModel();
-//		vm.set('firstname', '');
-//		vm.set('lastname', '');
-//
-//		Session.logout(this.getView());
-//		this.redirectTo(AppCamp.getApplication().getDefaultToken().toString(), true);
-//	}
+	//	onActionsViewLogoutTap: function( ) {
+	//		var vm = this.getViewModel();
+	//		vm.set('firstname', '');
+	//		vm.set('lastname', '');
+	//
+	//		Session.logout(this.getView());
+	//		this.redirectTo(AppCamp.getApplication().getDefaultToken().toString(), true);
+	//	}
 
 });

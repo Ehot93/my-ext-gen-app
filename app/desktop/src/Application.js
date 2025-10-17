@@ -12,8 +12,8 @@ Ext.define('MyExtGenApp.Application', {
 
 	launch: function () {
 		this.removeSplash()
-		var whichView = 'mainview'
-		Ext.Viewport.add([{xtype: whichView}])
+		var whichView = 'loginview';
+		Ext.Viewport.add([{ xtype: whichView }])
 	},
 
 	onAppUpdate: function () {
